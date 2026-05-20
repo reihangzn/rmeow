@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Rumah Meow</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF8F0;
+    --orange: #FF8C42;
+    --orange-light: #FFB347;
+    --orange-dark: #E06A1A;
+    --brown: #6B3F1F;
+    --brown-light: #A0654A;
+    --pink: #FFB5C8;
+    --pink-dark: #E8829B;
+    --yellow: #FFD166;
+    --green: #A8D8A8;
+    --green-dark: #5BA85B;
+    --white: #FFFFFF;
+    --gray-light: #F5EDE0;
+    --shadow: 0 4px 16px rgba(107,63,31,0.13);
+    --shadow-btn: 0 4px 0px rgba(107,63,31,0.22);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --radius-lg: 28px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+  }
+
+  /* ===== PHONE CONTAINER ===== */
+  .phone {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ===== PAGES ===== */
+  .page {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    animation: fadeIn 0.35s ease;
+  }
+  .page.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== HEADER BAR ===== */
+  .topbar {
+    background: var(--orange);
+    padding: 14px 18px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgba(224,106,26,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .topbar .page-title {
+    font-family: 'Fredoka One', cursive;
+    color: var(--white);
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    flex: 1;
+    text-align: center;
+  }
+  .topbar .btn-icon {
+    background: rgba(255,255,255,0.25);
+    border: none;
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .topbar .btn-icon:hover { background: rgba(255,255,255,0.4); }
+  .topbar .btn-icon.exit { background: rgba(255,80,80,0.25); }
+  .topbar .btn-icon.exit:hover { background: rgba(255,80,80,0.45); }
+
+  /* ===== HOME PAGE ===== */
+  #home {
+    background: linear-gradient(160deg, #FFF0DC 0%, #FFE4C2 100%);
+  }
+
+  .home-header {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+    padding: 40px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 40px 40px;
+    box-shadow: 0 6px 24px rgba(224,106,26,0.3);
+  }
+  .home-header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+  }
+  .home-header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: -20px;
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+
+  .cat-logo {
+    font-size: 4.5rem;
+    line-height: 1;
+    margin-bottom: 8px;
+    display: block;
+    animation: bounce 2s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .home-title {
+    font-family: 'Fredoka One', cursive;
+    color: var(--white);
+    font-size: 2.4rem;
+    letter-spacing: 1px;
+    text-shadow: 0 3px 8px rgba(107,63,31,0.3);
+    position: relative; z-index: 1;
+  }
+  .home-subtitle {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.9rem;
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    position: relative; z-index: 1;
+  }
+
+  /* Paw prints decoration */
+  .paw-decoration {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    position: relative; z-index: 1;
+  }
+  .paw-decoration span {
+    font-size: 1rem;
+    opacity: 0.7;
+    animation: fadeInPaw 0.5s ease forwards;
+  }
+  .paw-decoration span:nth-child(1) { animation-delay: 0.1s; }
+  .paw-decoration span:nth-child(2) { animation-delay: 0.3s; }
+  .paw-decoration span:nth-child(3) { animation-delay: 0.5s; }
+  @keyframes fadeInPaw {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 0.7; transform: scale(1); }
+  }
+
+  /* Menu section */
+  .menu-section {
+    padding: 30px 24px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .menu-label {
+    font-family: 'Fredoka One', cursive;
+    color: var(--brown);
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  /* Menu buttons */
+  .menu-btn {
+    background: var(--white);
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    box-shadow: var(--shadow), var(--shadow-btn);
+    transition: transform 0.18s, box-shadow 0.18s;
+    text-align: left;
+    width: 100%;
+    border-bottom: 4px solid rgba(107,63,31,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  }
+  .menu-btn:active { transform: translateY(3px); box-shadow: var(--shadow); }
+  .menu-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,63,31,0.18); }
+
+  .menu-btn-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 16px;
+  }
+  .btn-1 .menu-btn-icon { background: linear-gradient(135deg, #FFE0B2, #FFCC80); }
+  .btn-2 .menu-btn-icon { background: linear-gradient(135deg, #F8BBD9, #F48FB1); }
+  .btn-3 .menu-btn-icon { background: linear-gradient(135deg, #C8E6C9, #A5D6A7); }
+  .btn-exit .menu-btn-icon { background: linear-gradient(135deg, #FFCDD2, #EF9A9A); }
+
+  .menu-btn-text { flex: 1; }
+  .menu-btn-text h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 2px;
+  }
+  .menu-btn-text p {
+    font-size: 0.78rem;
+    color: var(--brown-light);
+    line-height: 1.3;
+  }
+  .menu-btn-arrow {
+    font-size: 1.2rem;
+    color: var(--brown-light);
+    opacity: 0.6;
+  }
+
+  /* Footer */
+  .home-footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 0.78rem;
+    color: var(--brown-light);
+    opacity: 0.6;
+  }
+
+  /* ===== INNER PAGES ===== */
+  .page-content {
+    flex: 1;
+    padding: 24px 20px;
+    overflow-y: auto;
+  }
+
+  /* ===== SUB NAV (back/next) ===== */
+  .subnav {
+    background: var(--orange);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgba(224,106,26,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .subnav-title {
+    font-family: 'Fredoka One', cursive;
+    color: var(--white);
+    font-size: 1rem;
+    text-align: center;
+    flex: 1;
+  }
+  .subnav .btn-icon {
+    background: rgba(255,255,255,0.22);
+    border: none;
+    border-radius: 50%;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .subnav .btn-icon:hover { background: rgba(255,255,255,0.4); }
+  .subnav .btn-icon.disabled { opacity: 0.3; pointer-events: none; }
+  .subnav .btn-icon.exit-btn { background: rgba(255,80,80,0.25); }
+  .subnav .btn-icon.exit-btn:hover { background: rgba(255,80,80,0.45); }
+
+  /* ===== CARD STYLE ===== */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--orange);
+    position: relative;
+  }
+  .card.pink { border-left-color: var(--pink-dark); }
+  .card.green { border-left-color: var(--green-dark); }
+  .card.yellow { border-left-color: var(--yellow); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .card-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+  .card h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+  .card p, .card li {
+    font-size: 0.9rem;
+    color: #5A3A1A;
+    line-height: 1.7;
+  }
+  .card ul {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+  .card ul li { margin-bottom: 4px; }
+
+  /* Section separator */
+  .section-sep {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0 16px;
+  }
+  .section-sep span { font-size: 1rem; }
+  .section-sep::before, .section-sep::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--orange-light), transparent);
+    border-radius: 2px;
+  }
+
+  /* ===== CAPAIAN PAGE TABS ===== */
+  .tab-bar {
+    display: flex;
+    background: rgba(255,140,66,0.1);
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 20px;
+    gap: 4px;
+  }
+  .tab-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    padding: 8px 4px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--brown-light);
+    cursor: pointer;
+    transition: all 0.22s;
+    line-height: 1.2;
+  }
+  .tab-btn.active {
+    background: var(--orange);
+    color: var(--white);
+    box-shadow: 0 3px 8px rgba(224,106,26,0.3);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+  /* ===== MATERI SLIDES ===== */
+  .slide-container {
+    position: relative;
+    min-height: 220px;
+  }
+  .slide {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+  .slide.active { display: block; }
+
+  .slide-header {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 16px 18px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .slide-header .slide-icon { font-size: 1.8rem; }
+  .slide-header h3 {
+    font-family: 'Fredoka One', cursive;
+    color: var(--white);
+    font-size: 1.1rem;
+  }
+
+  .slide-body {
+    background: var(--white);
+    border-radius: 0 0 var(--radius) var(--radius);
+    padding: 20px 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .slide-body p, .slide-body li {
+    font-size: 0.9rem;
+    color: #5A3A1A;
+    line-height: 1.7;
+  }
+  .slide-body ul { padding-left: 18px; margin-top: 6px; }
+  .slide-body ul li { margin-bottom: 4px; }
+
+  .slide-placeholder {
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    border: 2px dashed var(--orange-light);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    margin: 12px 0;
+  }
+  .slide-placeholder span { font-size: 2rem; display: block; margin-bottom: 8px; }
+  .slide-placeholder p { color: var(--brown-light); font-size: 0.85rem; font-style: italic; }
+
+  .slide-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 4px 4px;
+  }
+  .slide-nav-btn {
+    background: var(--orange);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 3px 0 var(--orange-dark);
+    transition: all 0.18s;
+  }
+  .slide-nav-btn:active { transform: translateY(2px); box-shadow: none; }
+  .slide-nav-btn.disabled { background: #D4C4B4; box-shadow: 0 3px 0 #B0A090; pointer-events: none; }
+  .slide-nav-btn.prev { background: var(--cream); color: var(--brown); box-shadow: 0 3px 0 #D4C4B4; border: 1.5px solid #D4C4B4; }
+  .slide-nav-btn.prev:active { transform: translateY(2px); box-shadow: none; }
+
+  .slide-counter {
+    font-family: 'Fredoka One', cursive;
+    color: var(--brown-light);
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  .slide-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange-light);
+    opacity: 0.35;
+    transition: all 0.2s;
+  }
+  .dot.active { opacity: 1; background: var(--orange); width: 20px; border-radius: 4px; }
+
+  /* ===== LATIHAN SOAL ===== */
+  .quiz-header {
+    background: linear-gradient(135deg, #A8D8A8 0%, #80C880 100%);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .quiz-header .quiz-icon { font-size: 2.5rem; display: block; margin-bottom: 4px; }
+  .quiz-header h2 {
+    font-family: 'Fredoka One', cursive;
+    color: var(--brown);
+    font-size: 1.2rem;
+  }
+  .quiz-header p { font-size: 0.82rem; color: var(--brown-light); margin-top: 2px; }
+
+  .quiz-progress {
+    background: rgba(107,63,31,0.08);
+    border-radius: 10px;
+    height: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--green-dark));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+  .quiz-progress-text {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .question-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--green-dark);
+  }
+  .question-num {
+    font-family: 'Fredoka One', cursive;
+    color: var(--green-dark);
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .question-text {
+    font-size: 0.92rem;
+    color: var(--brown);
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .option-btn {
+    background: var(--cream);
+    border: 2px solid #E8D8C4;
+    border-radius: 12px;
+    padding: 11px 14px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: var(--brown);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .option-btn:hover { background: #FFE8D0; border-color: var(--orange-light); }
+  .option-btn.selected { background: #FFE0B2; border-color: var(--orange); color: var(--brown); }
+  .option-btn.correct { background: #E8F5E9; border-color: var(--green-dark); color: var(--green-dark); }
+  .option-btn.wrong { background: #FFEBEE; border-color: #E57373; color: #C62828; }
+  .option-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--orange-light);
+    color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .option-btn.correct .option-letter { background: var(--green-dark); }
+  .option-btn.wrong .option-letter { background: #E57373; }
+
+  .quiz-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .quiz-btn {
+    flex: 1;
+    min-width: 120px;
+    background: var(--green-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #3D8A3D;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .quiz-btn:active { transform: translateY(3px); box-shadow: none; }
+  .quiz-btn.secondary {
+    background: var(--white);
+    color: var(--brown);
+    border: 2px solid #E8D8C4;
+    box-shadow: 0 4px 0 #D4C4B4;
+  }
+  .quiz-btn.secondary:active { transform: translateY(3px); box-shadow: none; }
+
+  /* Result */
+  .result-card {
+    display: none;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 30px 24px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    animation: bounceIn 0.5s cubic-bezier(.36,.07,.19,.97);
+  }
+  @keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .result-card.show { display: block; }
+  .result-emoji { font-size: 4rem; display: block; margin-bottom: 8px; }
+  .result-card h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--brown);
+    margin-bottom: 6px;
+  }
+  .score-display {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: var(--orange);
+    line-height: 1;
+    margin: 12px 0;
+  }
+  .score-label { font-size: 0.85rem; color: var(--brown-light); margin-bottom: 16px; }
+  .score-detail {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+    color: var(--brown);
+    font-weight: 600;
+  }
+
+  /* ===== EXIT MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(107,63,31,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    max-width: 300px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(107,63,31,0.3);
+    animation: fadeIn 0.3s ease;
+  }
+  .modal-icon { font-size: 3.5rem; display: block; margin-bottom: 10px; }
+  .modal h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: var(--brown);
+    margin-bottom: 8px;
+  }
+  .modal p { font-size: 0.88rem; color: var(--brown-light); margin-bottom: 20px; }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-btn {
+    flex: 1;
+    border: none;
+    border-radius: 14px;
+    padding: 12px;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .modal-btn.cancel { background: var(--cream); color: var(--brown); border: 2px solid #E8D8C4; }
+  .modal-btn.confirm { background: #FF5252; color: var(--white); box-shadow: 0 3px 0 #C62828; }
+  .modal-btn.confirm:active { transform: translateY(2px); box-shadow: none; }
+
+  /* ===== DECORATIVE ===== */
+  .paw-bg {
+    position: fixed;
+    font-size: 8rem;
+    opacity: 0.025;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--orange-light); border-radius: 4px; }
+
+  /* Responsive */
+  @media (max-width: 380px) {
+    .home-title { font-size: 2rem; }
+    .cat-logo { font-size: 3.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background paw prints -->
+<div class="paw-bg" style="top:5%;left:-5%;transform:rotate(-20deg)">🐾</div>
+<div class="paw-bg" style="bottom:10%;right:-5%;transform:rotate(15deg)">🐾</div>
+
+<!-- ============================= -->
+<!--           HOME PAGE           -->
+<!-- ============================= -->
+<div class="phone">
+<div id="home" class="page active">
+  <div class="home-header">
+    <span class="cat-logo">🐱</span>
+    <h1 class="home-title">Rumah Meow</h1>
+    <p class="home-subtitle">✦ Belajar Seru Bersama Meong ✦</p>
+    <div class="paw-decoration">
+      <span>🐾</span><span>🐾</span><span>🐾</span>
+    </div>
+  </div>
+
+  <div class="menu-section">
+    <p class="menu-label">🐱 Mau belajar apa hari ini? 🐱</p>
+
+    <!-- Tombol 1: Capaian Pembelajaran -->
+    <button class="menu-btn btn-1" onclick="showPage('capaian')">
+      <div class="menu-btn-icon">📋</div>
+      <div class="menu-btn-text">
+        <h3>Capaian Pembelajaran</h3>
+        <p>Lihat capaian, tujuan & alur tujuan pembelajaran</p>
+      </div>
+      <span class="menu-btn-arrow">›</span>
+    </button>
+
+    <!-- Tombol 2: Materi Ajar -->
+    <button class="menu-btn btn-2" onclick="showPage('materi')">
+      <div class="menu-btn-icon">📚</div>
+      <div class="menu-btn-text">
+        <h3>Materi Ajar</h3>
+        <p>Pelajari materi dengan slide interaktif Meow!</p>
+      </div>
+      <span class="menu-btn-arrow">›</span>
+    </button>
+
+    <!-- Tombol 3: Latihan Soal -->
+    <button class="menu-btn btn-3" onclick="showPage('latihan')">
+      <div class="menu-btn-icon">✏️</div>
+      <div class="menu-btn-text">
+        <h3>Latihan Soal</h3>
+        <p>Uji kemampuan dengan kuis seru bersama Meow!</p>
+      </div>
+      <span class="menu-btn-arrow">›</span>
+    </button>
+
+    <!-- Exit -->
+    <button class="menu-btn btn-exit" onclick="showExit()">
+      <div class="menu-btn-icon">🚪</div>
+      <div class="menu-btn-text">
+        <h3>Keluar</h3>
+        <p>Sampai jumpa, see you next time! 👋</p>
+      </div>
+      <span class="menu-btn-arrow">›</span>
+    </button>
+  </div>
+
+  <div class="home-footer">Rumah Meow - Reihan</div>
+</div><!-- end #home -->
+
+
+<!-- ============================= -->
+<!--       CAPAIAN PEMBELAJARAN    -->
+<!-- ============================= -->
+<div id="capaian" class="page">
+  <div class="topbar">
+    <button class="btn-icon" onclick="showPage('home')" title="Kembali">◀</button>
+    <span class="page-title">📋 Capaian Pembelajaran</span>
+    <button class="btn-icon exit" onclick="showExit()" title="Keluar">✕</button>
+  </div>
+
+  <div class="page-content">
+    <!-- Tab bar -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showTab('cp-tab1', this)">🎯 Capaian</button>
+      <button class="tab-btn" onclick="showTab('cp-tab2', this)">📌 Tujuan</button>
+      <button class="tab-btn" onclick="showTab('cp-tab3', this)">🗺️ Alur TP</button>
+    </div>
+
+    <!-- Tab 1: Capaian Pembelajaran -->
+    <div id="cp-tab1" class="tab-content active">
+      <div class="section-sep"><span>🐾</span></div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎯</span>
+          <h2>Capaian Pembelajaran</h2>
+        </div>
+        <!-- EDIT TEKS DI BAWAH INI -->
+        <p>
+          Peserta didik memahami keanekaragaman hayati, keragaman budaya, kearifan lokal, sejarah keluarga dan masyarakat tempat tinggalnya, dan upaya pelestariannya.
+        </p>
+      </div>
+    </div><!-- end tab1 -->
+
+    <!-- Tab 2: Tujuan Pembelajaran -->
+    <div id="cp-tab2" class="tab-content">
+      <div class="section-sep"><span>🐾</span></div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📌</span>
+          <h2>Tujuan Pembelajaran</h2>
+        </div>
+        <!-- EDIT TEKS DI BAWAH INI -->
+        <p>Setelah mengikuti pembelajaran ini, peserta didik diharapkan mampu:</p>
+        <ul>
+          <li>Tujuan 1: Peserta didik mampu menjelaskan persebaran flora dan fauna di Indonesia serta kaitannya dengan corak bentang alam, kondisi cuaca, dan kehidupan masyarakat di setiap wilayah.</li>
+          <li>Tujuan 2: Peserta didik mampu menjelaskan upaya pelestarian keanekaragaman hayati.</li>
+        </ul>
+      </div>
+    </div><!-- end tab2 -->
+
+    <!-- Tab 3: Alur Tujuan Pembelajaran -->
+    <div id="cp-tab3" class="tab-content">
+      <div class="section-sep"><span>🐾</span></div>
+
+      <!-- Step by step alur TP -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🗺️</span>
+          <h2>Alur Tujuan Pembelajaran</h2>
+        </div>
+        <!-- EDIT setiap tahapan di bawah ini -->
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:6px;">
+
+          <div style="background:#FFF3E0;border-radius:12px;padding:12px 14px;border-left:4px solid var(--orange);">
+            <div style="font-family:'Fredoka One',cursive;color:var(--orange);font-size:0.85rem;margin-bottom:4px;">Tahap 1 🐾</div>
+            <div style="font-size:0.88rem;color:var(--brown);">Peserta didik mampu membandingkan perbedaan persebaran flora dan fauna di wilayah Indonesia (Barat, Tengah, dan Timur) berdasarkan kondisi alamnya.</div>
+          </div>
+
+          <div style="text-align:center;font-size:1.2rem;color:var(--orange-light);">↓</div>
+
+          <div style="background:#FFF3E0;border-radius:12px;padding:12px 14px;border-left:4px solid var(--orange);">
+            <div style="font-family:'Fredoka One',cursive;color:var(--orange);font-size:0.85rem;margin-bottom:4px;">Tahap 2 🐾</div>
+            <div style="font-size:0.88rem;color:var(--brown);">Pesrta didik mampu menghubungkan wilayah habitat dengan flora dan fauna yang hidup di wilayah tersebut berdasarkan ciri-cirinya.</div>
+          </div>
+
+          <div style="text-align:center;font-size:1.2rem;color:var(--orange-light);">↓</div>
+
+          <div style="background:#FFF3E0;border-radius:12px;padding:12px 14px;border-left:4px solid var(--orange);">
+            <div style="font-family:'Fredoka One',cursive;color:var(--orange);font-size:0.85rem;margin-bottom:4px;">Tahap 3 🐾</div>
+            <div style="font-size:0.88rem;color:var(--brown);">Peserta didik menunjukkan kesadaran akan manfaat dan upaya pelestarian keanekaragaman hayati.</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end tab3 -->
+
+  </div><!-- end page-content -->
+</div><!-- end #capaian -->
+
+
+<!-- ============================= -->
+<!--          MATERI AJAR          -->
+<!-- ============================= -->
+<div id="materi" class="page">
+  <div class="topbar">
+    <button class="btn-icon" onclick="showPage('home')" title="Kembali">◀</button>
+    <span class="page-title">📚 Materi Ajar</span>
+    <button class="btn-icon exit" onclick="showExit()" title="Keluar">✕</button>
+  </div>
+
+  <div class="page-content">
+
+    <!-- Slide counter & dots -->
+    <div style="text-align:center;margin-bottom:12px;">
+      <div class="slide-counter" id="slide-counter">Slide 1 dari 5</div>
+      <div class="slide-dots" id="slide-dots"></div>
+    </div>
+
+    <!-- ===== SLIDE 1 ===== -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-header">
+        <span class="slide-icon">🐱</span>
+        <h3>Persebaran Flora dan Fauna di Indonesia</h3>
+      </div>
+      <div class="slide-body">
+        <!-- EDIT ISI SLIDE 1 DI BAWAH INI -->
+        <p>Keanekaragaman lora dan fauna di Indonesia bisa dibagi menjadi tiga wilayah, yaitu wilayah barat (asiatis), tengah (peralihan), dan timur (australis).</p>
+
+        <div class="slide-placeholder">
+          <img src="Peta-persebaran-flora-fauna.jpeg" alt="" width="304px" height="172px">
+        </div>
+
+        <ul>
+            <p><b>1. Garis Wallace</b></p>
+            <p>Garis ini dicetuskan oleh Alfred Russel Wallace yang memisahkan wilayah fauna tipe Asiatis dengan tipe Peralihan.</p>
+            <p>ㅤ</p>
+            <P><b>2. Garis Weber</b></P>
+            <p>Garis ini dicetuskan oleh Max Carl Wilhelm Weber yang memisahkan wilayah fauna tipe Peralihan dengan tipe Australis.</p>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 2 ===== -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <span class="slide-icon">🐾</span>
+        <h3>Ciri Fauna Indonesia</h3>
+      </div>
+      <div class="slide-body">
+        <!-- EDIT ISI SLIDE 2 DI BAWAH INI -->
+        <p><b>Wilayah Asiatis</b></p>
+        <ul>
+          <ol>
+          <li>Memiliki banyak mamalia berukuran besar</li>
+          <li>Terdapat berbagai jenis kera dan reptil</li>
+          <li>Banyak hewan berbulu dan berkaki empat</li>
+          </ol>
+        </ul>
+        <p>ㅤ</p>
+         <p><b>Wilayah Peralihan</b></p> 
+        <ul>
+          <ol>
+          <li>Memiliki hewan peralihan antara Asiatis dan Australis</li>
+          <li>Terdapat hewan reptil yang khas</li>
+          <li>Memiliki hewan dengan ciri khas yang berbeda dan tidak ditemukan di wilayah lain (endemik) Ukuran tubuh hewan cenderung sedang hingga kecil</li>
+          </ol>
+        <p>ㅤ</p>
+        </ul>
+         <p><b>Wilayah Australis</b></p>
+        <ul>
+          <ol>
+          <li>Memiliki banyak hewan berkantung (marsupial) </li>
+          <li>Banyak jenis burung berwarna cerah dan indah</li>
+          <li>Mamalia berukuran relatif kecil dan mirip dengan hewan Australia</li>
+          </ol>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 3 ===== -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <span class="slide-icon">😺</span>
+        <h3>Ciri Flora Indonesia</h3>
+      </div>
+      <div class="slide-body">
+        <!-- EDIT ISI SLIDE 3 DI BAWAH INI -->
+     <p><b>Wilayah Asiatis</b></p>
+        <ul>
+          <ol>
+          <li>Memiliki pohon tinggi dan besar</li>
+          <li>Berdaun lebat karena curah hujan tinggi </li>
+          <li>Banyak tumbuhan epifit, yaitu tumbuhan yang menumpang pada tumbuhan lain</li>
+          <li>Hutan sangat rapat dan hijau sepanjang tahun</li>
+          </ol>
+        </ul>
+        <p>ㅤ</p>
+         <p><b>Wilayah Peralihan</b></p> 
+        <ul>
+          <ol>
+          <li>Ukuran pohon cenderung kecil dan tidak terlalu rapat</li>
+          <li>Daunnya kecil dan pendek</li>
+          <li>Pada musim kemarau banyak tumbuhan menggugurkan daun</li>
+          <li>Didominasi padang rumput, sabana, dan stepa</li>
+          </ol>
+        <p>ㅤ</p>
+        </ul>
+         <p><b>Wilayah Australis</b></p>
+        <ul>
+          <ol>
+          <li>Banyak tumbuhan berdaun sejajar</li>
+          <li>Terdapat tumbuhan palma seperti pohon kelapa dan sagu</li>
+          <li>Banyak tumbuhan yang dimanfaatkan sebagai rempah-rempah</li>
+          <li>Beberapa wilayah didominasi hutan hujan tropis dan hutan musim</li>
+          </ol>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 4 ===== -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <span class="slide-icon">🐈</span>
+        <h3>Contoh Flora dan Fauna Indonesia</h3>
+      </div>
+      <div class="slide-body">
+        <!-- EDIT ISI SLIDE 4 DI BAWAH INI -->
+        <p><b>Wilayah Asiatis</b></p>
+        <ul>
+                       <ol>
+            <li>Fauna</li>
+             <ul>
+                <li>Gajah</li>
+                <li>Harimau Sumatra</li>
+                <li>Banteng</li>
+                <li>Elang Jawa</li>
+                <li>Bekantan</li>
+            </ul>
+             <li>Flora</li>
+            <ul>
+                <li>Meranti</li>
+                <li>Keruing</li>
+                <li>Rotan</li>
+                <li>Jati</li>
+            </ul>
+           </ol>
+        </ul> 
+        <p>ㅤ</p>
+    <p><b>Wilayah Peralihan</b></p>
+        <ul>
+           <ol>
+            <li>Fauna</li>
+             <ul>
+                <li>Babi Rusa</li>
+                <li>Kaka Tua</li>
+                <li>Maleo</li>
+                <li>Komodo</li>
+                <li>Tarsius</li>
+            </ul>
+             <li>Flora</li>
+            <ul>
+                <li>Kayu manis</li>
+                <li>Lontar</li>
+                <li>Cengkeh</li>
+            </ul>
+           </ol> 
+        </ul>
+        <p>ㅤ</p>
+        <p><b>Wilayah Australis</b></p>
+        <ul>
+           <ol>
+            <li>Fauna</li>
+             <ul>
+                <li>Kuskus</li>
+                <li>Kanguru Pohon</li>
+                <li>Walabi</li>
+                <li>Kasuari</li>
+                <li>Hiu Gergaji</li>
+            </ul>
+             <li>Flora</li>
+            <ul>
+                <li>Matoa</li>
+                <li>Sagu</li>
+                <li>Cendana</li>
+                <li>Merbau</li>
+            </ul>
+           </ol> 
+        </ul>
+        <div style="background:#FFF9E6;border-radius:12px">
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 5 ===== -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <span class="slide-icon">🌟</span>
+        <h3>Cara Melestarikan Flora dan Fauna</h3>
+      </div>
+      <div class="slide-body">
+        <!-- EDIT ISI SLIDE 5 DI BAWAH INI -->
+        <p><b>Cara melestarikan flora</b></p>
+        <ul>
+            <ol>
+                <li>Tidak menebang pohon secara liar</li>
+                <li>Melakukan reboisasi atau penanaman kembali hutan yang gundul</li>
+                <li>Mengurangi penggunaan barang yang berasal dari penebangan hutan ilegal</li>
+                <li>Merawat tumbuhan dengan baik di lingkungan rumah dan sekolah</li>
+            </ol>
+        </ul>
+         <p><b>Cara melestarikan flora</b></p>
+        <ul>
+            <ol>
+                <li>Tidak berburu hewan langka secara sembarangan</li>
+                <li>Melindungi habitat asli hewan agar tetap terjaga</li>
+                <li>Mendukung kegiatan konservasi hewan di kebun binatang dan taman nasional</li>
+                <li>Menjaga kebersihan lingkungan agar hewan dapat hidup dengan nyaman</li>
+            </ol>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide navigation -->
+    <div class="slide-nav">
+      <button class="slide-nav-btn prev disabled" id="btn-prev" onclick="changeSlide(-1)">◀ Sebelumnya</button>
+      <div></div>
+      <button class="slide-nav-btn" id="btn-next" onclick="changeSlide(1)">Berikutnya ▶</button>
+    </div>
+
+  </div><!-- end page-content -->
+</div><!-- end #materi -->
+
+
+<!-- ============================= -->
+<!--         LATIHAN SOAL          -->
+<!-- ============================= -->
+<div id="latihan" class="page">
+  <div class="topbar">
+    <button class="btn-icon" onclick="showPage('home')" title="Kembali">◀</button>
+    <span class="page-title">✏️ Latihan Soal</span>
+    <button class="btn-icon exit" onclick="showExit()" title="Keluar">✕</button>
+  </div>
+
+  <div class="page-content" id="quiz-content">
+
+    <div class="quiz-header">
+      <span class="quiz-icon">🐱</span>
+      <h2>Kuis Meow!</h2>
+      <p>Jawab semua soal dengan benar ya, Meong~ ✨</p>
+    </div>
+
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar" id="quiz-progress-bar" style="width:0%"></div>
+    </div>
+    <div class="quiz-progress-text" id="quiz-progress-text">Belum dimulai</div>
+
+    <!-- Questions container -->
+    <div id="questions-wrapper"></div>
+
+    <!-- Quiz Actions -->
+    <div class="quiz-actions" id="quiz-actions" style="display:none;">
+      <button class="quiz-btn secondary" onclick="resetQuiz()">🔄 Ulangi</button>
+      <button class="quiz-btn" onclick="submitQuiz()">✅ Selesai & Nilai</button>
+    </div>
+
+    <!-- Result -->
+    <div class="result-card" id="result-card">
+      <span class="result-emoji" id="result-emoji">🐱</span>
+      <h2 id="result-title">Hasil Kuis</h2>
+      <div class="score-display" id="score-display">0</div>
+      <div class="score-label" id="score-label">dari 100 poin</div>
+      <div class="score-detail" id="score-detail">0 benar dari 0 soal</div>
+      <div class="quiz-actions" style="margin-top:8px;">
+        <button class="quiz-btn secondary" onclick="resetQuiz()">🔄 Coba Lagi</button>
+        <button class="quiz-btn" onclick="showPage('home')">🏠 Beranda</button>
+      </div>
+    </div>
+
+  </div><!-- end page-content -->
+</div><!-- end #latihan -->
+
+
+<!-- ============================= -->
+<!--         EXIT MODAL            -->
+<!-- ============================= -->
+<div class="modal-overlay" id="exit-modal">
+  <div class="modal">
+    <span class="modal-icon">😿</span>
+    <h3>Mau pergi, Meong?</h3>
+    <p>Yakin mau keluar dari Rumah Meow? Sampai jumpa ya!</p>
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeExit()">Batal 🐾</button>
+      <button class="modal-btn confirm" onclick="exitApp()">Keluar 🚪</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .phone -->
+
+<script>
+// =============================================
+//   DATA SOAL - EDIT SOAL DAN JAWABAN DI SINI
+// =============================================
+const quizData = [
+  {
+    question: "Seorang siswa menemukan daerah dengan ciri hutan rapat, pohon tinggi, dan banyak tumbuhan epifit. Berdasarkan cirinya, daerah tersebut termasuk wilayah ....",
+    options: [
+      "Australis",
+      "Sabana",
+      "Asiatis",
+      "Peralihan"
+    ],
+    answer: 2 // Index jawaban benar (0=A, 1=B, 2=C, 3=D)
+  },
+  {
+    question: "Jika garis Wallace tidak ada, maka kemungkinan yang terjadi adalah ....",
+    options: [
+      "Semua fauna Indonesia sama",
+      "Persebaran fauna lebih mudah dibedakan",
+      "Tidak ada pembagian fauna Asiatis dan Peralihan",
+      "Fauna Australis pindah ke Asia"
+    ],
+    answer: 2
+  },
+  {
+    question: "Seorang warga terus menebang hutan secara liar untuk dijual. Dampak yang paling mungkin terjadi adalah ....",
+    options: [
+      "Hewan mudah berkembang biak",
+      "Habitat flora dan fauna rusak",
+      "Curah hujan semakin tinggi",
+      "Tumbuhan semakin beragam"
+    ],
+    answer: 1
+  },
+  {
+    question: "Mengapa wilayah peralihan memiliki banyak hewan endemik?",
+    options: [
+      "Dipengaruhi dua tipe fauna berbeda",
+      "Memiliki iklim paling dingin",
+      "Sedikit pulau di Indonesia",
+      "Tidak memiliki hutan tropis"
+    ],
+    answer: 0
+  },
+  {
+    question: "Daerah dengan padang rumput luas, pohon kecil, dan daun mudah gugur saat kemarau termasuk wilayah ....",
+    options: [
+      "Asiatis",
+      "Australis",
+      "Tropis",
+      "Peralihan"
+    ],
+    answer: 3
+  }
+  // TAMBAH SOAL LAGI DI SINI dengan format yang sama
+  // ,{
+  //   question: "[Pertanyaan baru]",
+  //   options: ["[A]", "[B]", "[C]", "[D]"],
+  //   answer: 0
+  // }
+];
+
+// =============================================
+//       SLIDE MANAGEMENT
+// =============================================
+const totalSlides = 5; // Ubah sesuai jumlah slide yang kamu buat
+let currentSlide = 1;
+
+function initSlides() {
+  const dots = document.getElementById('slide-dots');
+  dots.innerHTML = '';
+  for (let i = 1; i <= totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 1 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dots.appendChild(dot);
+  }
+}
+
+function goToSlide(n) {
+  document.getElementById('slide-' + currentSlide).classList.remove('active');
+  document.querySelectorAll('.dot')[currentSlide - 1].classList.remove('active');
+  currentSlide = n;
+  document.getElementById('slide-' + currentSlide).classList.add('active');
+  document.querySelectorAll('.dot')[currentSlide - 1].classList.add('active');
+  document.getElementById('slide-counter').textContent = `Slide ${currentSlide} dari ${totalSlides}`;
+  document.getElementById('btn-prev').classList.toggle('disabled', currentSlide === 1);
+  document.getElementById('btn-next').classList.toggle('disabled', currentSlide === totalSlides);
+}
+
+function changeSlide(dir) {
+  const next = currentSlide + dir;
+  if (next >= 1 && next <= totalSlides) goToSlide(next);
+}
+
+// =============================================
+//       QUIZ MANAGEMENT
+// =============================================
+let userAnswers = {};
+let quizSubmitted = false;
+
+function buildQuiz() {
+  const wrapper = document.getElementById('questions-wrapper');
+  wrapper.innerHTML = '';
+  userAnswers = {};
+  quizSubmitted = false;
+
+  quizData.forEach((q, qi) => {
+    const letters = ['A', 'B', 'C', 'D', 'E'];
+    const optionsHTML = q.options.map((opt, oi) => `
+      <button class="option-btn" id="opt-${qi}-${oi}" onclick="selectAnswer(${qi}, ${oi})">
+        <span class="option-letter">${letters[oi]}</span>
+        <span>${opt}</span>
+      </button>
+    `).join('');
+
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.innerHTML = `
+      <div class="question-num">🐾 Soal ${qi + 1}</div>
+      <div class="question-text">${q.question}</div>
+      <div class="options" id="options-${qi}">${optionsHTML}</div>
+    `;
+    wrapper.appendChild(card);
+  });
+
+  updateProgress();
+  document.getElementById('quiz-actions').style.display = 'flex';
+  document.getElementById('result-card').classList.remove('show');
+}
+
+function selectAnswer(qi, oi) {
+  if (quizSubmitted) return;
+  // Deselect previous
+  const prev = userAnswers[qi];
+  if (prev !== undefined) {
+    document.getElementById(`opt-${qi}-${prev}`).classList.remove('selected');
+  }
+  userAnswers[qi] = oi;
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  updateProgress();
+}
+
+function updateProgress() {
+  const answered = Object.keys(userAnswers).length;
+  const total = quizData.length;
+  const pct = (answered / total) * 100;
+  document.getElementById('quiz-progress-bar').style.width = pct + '%';
+  document.getElementById('quiz-progress-text').textContent =
+    answered === total ? '🐾 Semua soal terjawab! Tekan Selesai.' : `${answered} dari ${total} soal terjawab`;
+}
+
+function submitQuiz() {
+  const answered = Object.keys(userAnswers).length;
+  if (answered < quizData.length) {
+    const remaining = quizData.length - answered;
+    if (!confirm(`Masih ada ${remaining} soal yang belum dijawab. Lanjutkan?`)) return;
+  }
+
+  quizSubmitted = true;
+  let correct = 0;
+
+  quizData.forEach((q, qi) => {
+    const selected = userAnswers[qi];
+    const correct_idx = q.answer;
+    // Show all options result
+    q.options.forEach((_, oi) => {
+      const btn = document.getElementById(`opt-${qi}-${oi}`);
+      btn.classList.remove('selected');
+      if (oi === correct_idx) btn.classList.add('correct');
+      else if (oi === selected && selected !== correct_idx) btn.classList.add('wrong');
+    });
+    if (selected === correct_idx) correct++;
+  });
+
+  const score = Math.round((correct / quizData.length) * 100);
+  const emojis = score >= 80 ? '😸' : score >= 60 ? '😺' : score >= 40 ? '🐱' : '😿';
+  const titles = score >= 80 ? 'Meow-velous! 🎉' : score >= 60 ? 'Bagus sekali! 👏' : score >= 40 ? 'Terus semangat! 💪' : 'Jangan menyerah! 🐾';
+
+  document.getElementById('result-emoji').textContent = emojis;
+  document.getElementById('result-title').textContent = titles;
+  document.getElementById('score-display').textContent = score;
+  document.getElementById('score-detail').textContent = `${correct} benar dari ${quizData.length} soal`;
+  document.getElementById('quiz-actions').style.display = 'none';
+
+  // Scroll to results
+  setTimeout(() => {
+    document.getElementById('result-card').classList.add('show');
+    document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
+  }, 300);
+}
+
+function resetQuiz() {
+  buildQuiz();
+  document.getElementById('quiz-content').scrollTop = 0;
+  window.scrollTo(0, 0);
+}
+
+// =============================================
+//       PAGE NAVIGATION
+// =============================================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+
+  if (id === 'materi') {
+    currentSlide = 1;
+    initSlides();
+    goToSlide(1);
+  }
+  if (id === 'latihan') {
+    buildQuiz();
+  }
+}
+
+// =============================================
+//       TAB MANAGEMENT
+// =============================================
+function showTab(tabId, btn) {
+  // Hide all tab contents in the parent
+  const parentPage = btn.closest('.page');
+  parentPage.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  parentPage.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// =============================================
+//       EXIT MODAL
+// =============================================
+function showExit() {
+  document.getElementById('exit-modal').classList.add('show');
+}
+function closeExit() {
+  document.getElementById('exit-modal').classList.remove('show');
+}
+function exitApp() {
+  window.close();
+  // Fallback jika window.close() tidak bekerja:
+  document.body.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Fredoka One',cursive;background:#FFF8F0;text-align:center;padding:20px;">
+      <div style="font-size:5rem;margin-bottom:16px;animation:bounce 2s infinite;">😿</div>
+      <h1 style="color:#FF8C42;font-size:2rem;margin-bottom:8px;">Sampai Jumpa!</h1>
+      <p style="color:#A0654A;font-size:1rem;">Terima kasih sudah belajar di Rumah Meow 🐾</p>
+      <button onclick="location.reload()" style="margin-top:24px;background:#FF8C42;color:white;border:none;border-radius:16px;padding:12px 28px;font-family:'Fredoka One',cursive;font-size:1rem;cursor:pointer;box-shadow:0 4px 0 #E06A1A;">Kembali 🏠</button>
+    </div>
+    <style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style>
+  `;
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  initSlides();
+});
+</script>
+</body>
+</html>
